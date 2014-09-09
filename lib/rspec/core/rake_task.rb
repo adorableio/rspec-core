@@ -94,7 +94,9 @@ module RSpec
         return unless fail_on_error && !success
 
         $stderr.puts "#{command} failed"
-        exit $?.exitstatus
+        exit $?.exitstatus if $?.exited?
+        $stderr.puts "Um, $?.exited? is not truthy, wtf"
+        exit 1
       end
 
     private
